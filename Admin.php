@@ -9,7 +9,7 @@ include('Config.php');
 session_start();
 $timestamp = date('Y-m-d h:i:sa');
 $login_session = $_SESSION['user'];
-$sql= "select * from system_users";
+$sql= "select u_username,u_rolecode,acc_data from system_users";
 $result = mysqli_query($db,$sql);
 
 
@@ -23,7 +23,7 @@ echo  '<table>';
 echo '<tr>';
 echo '<th>User Name</th>';
 echo '<th>Role</th>';
-
+echo '<th>Access of Data</th>';
 echo '</tr>';
 $i=1;
 while($row = mysqli_fetch_array($result))
@@ -31,6 +31,7 @@ while($row = mysqli_fetch_array($result))
     echo '<tr>';
     echo '<td>' . $row['u_username'] . '</td>';
     echo '<td>' . $row['u_rolecode'] . '</td>';
+    echo '<td>' . $row['acc_data'] . '</td>';
     echo '</tr>';
 }
 echo '</table>';

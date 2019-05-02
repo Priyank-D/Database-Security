@@ -7,11 +7,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     $myusername = $_POST['username'];
-    $mypassword = $_POST['user_password'];
+    $mypassword = MD5($_POST['user_password']);
     $sql = "SELECT u_rolecode FROM system_users WHERE u_username = '$myusername' and u_password = '$mypassword'";
     $result = mysqli_query($db,$sql);
     //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-    $_SESSION['active'];
+   $_SESSION['active'];
     while ($row = $result->fetch_assoc()) {
         $_SESSION['active'] = $row['u_rolecode'];
     }

@@ -15,7 +15,7 @@ if ($active == 'ADMIN') {
     header( "Location: hr.php" );
 } elseif ($active == 'AM'){
     header( "Location: sales.php" );
-} elseif ($active = 'DB Manager') {
+} elseif ($active = 'end-user') {
     header( "Location: endusers.php" );
 }   else {
 echo "hello";
