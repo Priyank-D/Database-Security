@@ -16,6 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 unset($_SESSION['attempt']);
                 unset($_SESSION['attempt_again']);
                 $dis=false;
+                $error='';
             }
         }
     } else {
