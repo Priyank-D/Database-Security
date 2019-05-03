@@ -2,28 +2,42 @@
 include("config.php");
 session_start();
 $error = "";
+$atmp=0;
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // username and password sent from form
-
-
     $myusername = $_POST['username'];
     $mypassword = MD5($_POST['user_password']);
+    $sql1="SELECT attempts From system_users WHERE u_username = '$myusername'";
+    $result1 = mysqli_query($db, $sql1);
+    while ($row = $result1->fetch_assoc()) {
+        $atmp = $row['attempts'];
+    }
+    $atmp=$_POST['hidden'];
+    if($atmp<4){
+
     $sql = "SELECT u_rolecode FROM system_users WHERE u_username = '$myusername' and u_password = '$mypassword'";
-    $result = mysqli_query($db,$sql);
+    $result = mysqli_query($db, $sql);
     //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-   $_SESSION['active'];
+
     while ($row = $result->fetch_assoc()) {
         $_SESSION['active'] = $row['u_rolecode'];
     }
     $count = mysqli_num_rows($result);
 
-    if($count == 1) {
-        if(!isset($_SESSION['myusername']))
+    if ($count == 1) {
+        if (!isset($_SESSION['myusername']))
             $_SESSION['login_user'] = $myusername;
-
         header("location: welcome.php");
-    }else {
+    } else {
         $error = "Your Login Name or Password is invalid";
+        $atmp = $atmp + 1;
+        $sql="UPDATE system_users SET attempts = '$atmp' where u_username = '$myusername'";
+        $result = mysqli_query($db, $sql);
+       //echo $atmp;
+    }
+}  if($atmp==4){
+        $error="login limit exceed";
+        header("location: index.php");
     }
 }
 ?>
@@ -58,6 +72,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div style = "margin:30px">
 
             <form action = "" method = "post">
+                <?php
+                echo"<input type='hidden' name ='hidden' value='".$atmp."'>";
+
+                ?>
                 <div class="form-group">
                     <label class="col-lg-2 control-label" for="username"><span class="required">*</span>Username:</label>
                     <div class="col-lg-6">
