@@ -88,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form-group">
                     <label class="col-lg-2 control-label" for="user_password"><span class="required">*</span>Password:</label>
                     <div class="col-lg-6">
-                        <input type="password" value="" placeholder="Password" id="user_password" class="form-control" name="user_password" required="" >
+                        <input type="password" value="" <?php if($dis==true){?> disabled="disabled" <?php } ?> placeholder="Password" id="user_password" class="form-control" name="user_password" required="" >
                     </div>
                 </div>
                 <div style = "font-size:11px; color:#cc0000; margin-top:10px"></div>
