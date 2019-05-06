@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['attempt'] = 0;
     }if($_SESSION['attempt'] == 3){
         $error = 'Attempt limit reach';
-        $error = "Login After 3min";
+        $error = "Login After 1 min";
         $dis=true;
         if(isset($_SESSION['attempt_again'])){
             $now = time();
