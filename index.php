@@ -70,12 +70,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body bgcolor = "#FFFFFF">
+<br>
+<h2 align="center">Secured Sales Database Management System Web Application</h2>
+<br>
+<br>
 
 <div align = "center">
     <div style = "width:300px; border: solid 1px #333333; " align = "left">
         <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
 
-        <div style = "margin:30px">
+        <div style = "margin:50px">
 
             <form action = "" method = "post">
 

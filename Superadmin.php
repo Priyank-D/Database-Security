@@ -8,18 +8,54 @@
 
 include('Config.php');
 session_start();
-$timestamp = date('Y-m-d h:i:sa');
+date_default_timezone_set("America/Chicago");
+echo "You have logged in at " . date("M,d,Y h:i:s A")." !!!";
 $login_session = $_SESSION['user'];
+$sqlLastLogin= "select LoginTime from system_users where u_username='$login_session'";
+
+$resultLastLogin = mysqli_query($db,	$sqlLastLogin);
+while ($row = $resultLastLogin->fetch_assoc()) {
+            $LastLogin = $row['LoginTime'];
+        }
+
+
+$sqlLogin= "UPDATE system_users SET LoginTime=NOW() where u_username='$login_session'";
+$resultLogin = mysqli_query($db,$sqlLogin);
+
 $sql= "SELECT system_users.u_username, role.role_rolename, role_rights.rr_create,role_rights.rr_delete,role_rights.rr_edit,
 role_rights.rr_view
 FROM system_users join role ON system_users.u_rolecode = role.role_rolecode
-join role_rights ON role.role_rolecode = role_rights.rr_rolecode";
+join role_rights ON role.role_rolecode = role_rights.rr_rolecode  where u_username !='$login_session'";
 $result = mysqli_query($db,$sql);
 
 echo '<!DOCTYPE html><html><head><meta charset="ISO-8859-1"><title>AM</title>';
 echo '<link rel="stylesheet" type="text/css" href="Style.css">';
-echo '</head><body>';
-echo '<div id ="head: style="text-align: center;"><h2>Welcome </h2>'.$login_session.'</div>';
+echo '</head>';
+echo '<style> 
+p.dashed {border: 1px solid black;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  margin-right: 400px;
+  margin-left: 5px;
+  padding: 25px;
+  background-color: lightblue;}
+</style>';
+echo '<body>';
+echo '<div id ="head: style="text-align: center;"><h2>Welcome<u> '.$login_session.'! </u></h2></div>';
+echo '<p> The last time you logged in is <span style="color: red">'.$LastLogin.'</span>. If this was not by you then please contact Admin.</p>';
+echo '<p class="dashed">******** This system is for the use of authorized superadmin only.
+Individuals using this computer system without
+authority, or in excess of their authority, are subject
+to having all of their activities on this system
+monitored and recorded by system personnel.
+In the course of monitoring individuals improperly using this
+system, or in the course of system maintenance, the
+activities of authorized users may also be monitored. 
+Anyone using this system expressly consents to such
+monitoring and is advised that if such monitoring
+reveals possible evidence of criminal activity, system
+personnel may provide the evidence of such monitoring
+to law enforcement officials. **********</div>';
 echo '<div id ="head"><h2>Users & Roles</h2></div>';
 
 echo  '<table>';
