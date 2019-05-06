@@ -98,6 +98,10 @@ echo '</body></html>';
 </head>
 
 <body>
+<br>
+<br>
+<h1>Click below link to see the Security Training Records</h1>
+<h2><a href="https://drive.google.com/drive/u/1/folders/1MJzlGa4x4ogL50XcwQ5-titwTwW947EX" >Security Training Records</a></h2>
 <h2><a href = "logout.php">Sign Out</a></h2>
 </body>
 </html>
